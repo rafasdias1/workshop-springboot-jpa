@@ -44,9 +44,15 @@ public class TestConfig implements CommandLineRunner {
         Order o2=new Order(null, Instant.parse("2019-06-21T15:21:01Z"),OrderStatus.WAITING_PAYMENT,u2);
         Order o3=new Order(null, Instant.parse("2019-07-22T10:22:21Z"),OrderStatus.WAITING_PAYMENT,u1);
 
-        Category c1=new Category(null,"Eletronics");
-        Category c2=new Category(null,"Books");
-        Category c3=new Category(null,"Computers");
+        userRepository.saveAll(Arrays.asList(u1,u2));
+
+        orderRepository.saveAll(Arrays.asList(o1,o2,o3));
+
+        Category c1 = new Category(null, "Eletronics");
+        Category c2 = new Category(null, "Books");
+        Category c3 = new Category(null, "Computers");
+
+
 
         Product p1 = new Product(
                 null,
@@ -88,18 +94,19 @@ public class TestConfig implements CommandLineRunner {
                 "https://img.com/rails.jpg"
         );
 
+        categoryRepository.saveAll(Arrays.asList(c1, c2, c3));
+        //productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
 
+        p1.getCategories().add(c2);
+        p2.getCategories().add(c1);
+        p2.getCategories().add(c3);
+        p3.getCategories().add(c3);
+        p4.getCategories().add(c3);
+        p5.getCategories().add(c2);
 
+        productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 
-
-        userRepository.saveAll(Arrays.asList(u1,u2));
-
-        orderRepository.saveAll(Arrays.asList(o1,o2,o3));
-
-        categoryRepository.saveAll(Arrays.asList(c1,c2,c3));
-
-        productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
 
     }

@@ -1,5 +1,7 @@
 package com.project.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +25,9 @@ public class Product implements Serializable {
     private String imgUrl;
 
 
-    @Transient
+
+    @JoinTable(name = "tb_product_category",joinColumns = @JoinColumn(name = "product_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
+    @ManyToMany
     @Setter(AccessLevel.NONE)
     private Set<Category> categories= new HashSet<>();
 
